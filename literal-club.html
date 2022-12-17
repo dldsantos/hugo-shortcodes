@@ -9,13 +9,35 @@
 {{ $.Scratch.Set "sc_layout" "row" }}
 
 {{ if .IsNamedParams }}
-	{{ $.Scratch.Set "sc_username" (.Get "username") }}
-	{{ $.Scratch.Set "sc_layout" (.Get "layout") }}
+	<!-- widget username -->
+	{{ with .Get "username" }}
+		{{ $.Scratch.Set "sc_username" . }}
+	{{ else }}
+		{{ $.Scratch.Set "sc_username" "danielsantos" }}
+	{{ end }}
+
+	<!-- widget layout - available options: "row" or "list" -->
+	{{ with .Get "layout" }}
+		{{ $.Scratch.Set "sc_layout" . }}
+	{{ else }}
+		{{ $.Scratch.Set "sc_layout" "row" }}
+	{{ end }}		
 {{ else }}
-	{{ $.Scratch.Set "sc_username" (.Get 0) }}
-	{{ $.Scratch.Set "sc_layout" (.Get 1) }}
+	<!-- widget username -->
+	{{ with .Get 0 }}
+		{{ $.Scratch.Set "sc_username" . }}
+	{{ else }}
+		{{ $.Scratch.Set "sc_username" "danielsantos" }}
+	{{ end }}
+
+	<!-- widget layout - available options: "row" or "list" -->
+	{{ with .Get 1 }}
+		{{ $.Scratch.Set "sc_layout" . }}
+	{{ else }}
+		{{ $.Scratch.Set "sc_layout" "row" }}
+	{{ end }}
 {{ end }}
 
 <!-- render Literal.club widget -->
-<div id="literal-widget" handle="{{ .Get "sc_username" }}" status="IS_READING" layout="{{ .Get "sc_layout" }}"></div>
+<div id="literal-widget" handle="{{ $.Scratch.Get "sc_username" }}" status='IS_READING' layout="{{ $.Scratch.Get "sc_layout" }}"></div>
 <script src="https://literal.club/js/widget.js"></script>
