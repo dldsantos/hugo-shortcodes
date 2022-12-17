@@ -1,0 +1,21 @@
+<!-- Literal.club widget shortcode for Hugo
+     Author: Daniel Santos https://github.com/dldsantos/
+-->
+
+<!-- Reset scratch variables at the start 
+	 If no values are provided, set default ones
+-->
+{{ $.Scratch.Set "sc_username" "danielsantos" }}
+{{ $.Scratch.Set "sc_layout" "row" }}
+
+{{ if .IsNamedParams }}
+	{{ $.Scratch.Set "sc_username" (.Get "username") }}
+	{{ $.Scratch.Set "sc_layout" (.Get "layout") }}
+{{ else }}
+	{{ $.Scratch.Set "sc_username" (.Get 0) }}
+	{{ $.Scratch.Set "sc_layout" (.Get 1) }}
+{{ end }}
+
+<!-- render Literal.club widget -->
+<div id="literal-widget" handle="{{ .Get "sc_username" }}" status="IS_READING" layout="{{ .Get "sc_layout" }}"></div>
+<script src="https://literal.club/js/widget.js"></script>
